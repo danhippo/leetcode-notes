@@ -1,0 +1,2 @@
+# leetcode-notes
+Algorithm practice
