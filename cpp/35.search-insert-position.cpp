@@ -11,18 +11,27 @@ using namespace std;
 class Solution {
 public:
     int searchInsert(vector<int>& nums, int target) {
-        vector<int>::iterator begin = nums.begin();
-        vector<int>::iterator end = nums.end();
+        int left = 0;
+        int right = nums.size();
 
-        vector<int>::iterator it;
-        int cnt = 0;
-        for(it = begin; it!=end; it++, cnt++) {
-            if(target<=*it)
+        while(right > left)
+        {
+            int mid = (left+right)/2;
+
+            if(target == nums[mid])
             {
-                return cnt;
+                return mid;
+            }
+            else if(target > nums[mid])
+            {
+                left = mid + 1;
+            }
+            else
+            {
+                right = mid;
             }
         }
-        return cnt;
+        return left;
     }
 };
 // @lc code=end
