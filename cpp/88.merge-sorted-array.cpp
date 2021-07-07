@@ -8,30 +8,22 @@
 class Solution {
 public:
     void merge(vector<int>& nums1, int m, vector<int>& nums2, int n) {
-        vector<int> result;
-        int i = 0, j = 0;
-        while(i<m || j<n)
+        int i = m-1, j = n-1, k = m+n-1;
+        while(i>=0 || j >=0)
         {
-            if(i>=m)
+            if(j<0)
             {
-                result.push_back(nums2[j++]);
+                nums1[k--] = nums1[i--];
                 continue;
             }
-
-            if(j>=n)
+            if(i<0)
             {
-                result.push_back(nums1[i++]);
+                nums1[k--] = nums2[j--];
                 continue;
             }
-
-            if(!nums2.empty() && nums1[i]>nums2[j])
-                result.push_back(nums2[j++]);
-            else
-                result.push_back(nums1[i++]);
+            if(nums1[i]<nums2[j]) nums1[k--] =nums2[j--];
+            else nums1[k--] = nums1[i--];
         }
-
-        for(int cnt = 0; cnt<nums1.size();cnt++)
-            nums1[cnt] = result[cnt];
     }
 };
 // @lc code=end
