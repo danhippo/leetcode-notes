@@ -5,12 +5,16 @@
  */
 
 // @lc code=start
+#include <iostream>
+#include <vector>
+#include <unordered_set>
+
 class Solution {
 public:
     bool containsDuplicate(vector<int>& nums) {
         unordered_set<int> uniq;
-        for(int num : nums)
-            if(!uniq.insert(num).second) return true;
+        for(auto it = nums.begin(); it != nums.end(); ++it)
+            if(!uniq.insert(*it).second) return true;
         return false;
     }
 };
