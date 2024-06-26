@@ -3,31 +3,62 @@
  *
  * [15] 3Sum
  */
+#include <iostream>
+#include <vector>
+#include <algorithm>
+using namespace std;
 
 // @lc code=start
 class Solution {
 public:
     vector<vector<int>> threeSum(vector<int>& nums) {
-        sort(nums.begin(),nums.end());
-        int n = nums.size();
+        sort(nums.begin(), nums.end());
         vector<vector<int>> result;
-        for(int i=0; i<n; ++i)
+        for(int first = 0; first < nums.size(); first++)
         {
-            if(i && nums[i]==nums[i-1]) continue;
-            int j = i+1;
-            int k = n-1;
-            while(j<k)
+            if(nums[first] > 0)
             {
-                int t = 0 - nums[i];
-                if(t < nums[j]+nums[k]) --k;
-                else if(t > nums[j]+nums[k]) ++j;
-                else{
-                    result.push_back({nums[i],nums[j],nums[k]});
-                    while(j<k && nums[j]==nums[j+1]) ++j;
-                    while(j<k && nums[k]==nums[k-1]) --k;
-                    ++j;
-                    --k;
+                break;
+            }
+
+            if(first > 0 && nums[first] == nums[first - 1])
+            {
+                continue;
+            }
+            int second = first + 1;
+            int third = nums.size() - 1;
+            while(third > second)
+            {
+                //printf("%d, %d, %d\n", first, second, third);
+                /*
+                if(second != first + 1 && nums[second] == nums[second - 1])
+                {
+                    ++second;
                 }
+                if(third != nums.size() - 1 && nums[third] == nums[third + 1])
+                {
+                    --third;
+                }
+                */
+                if (nums[second]+nums[third]+nums[first] == 0)
+                {
+                    printf("Add :%d, %d, %d\n", first, second, third);
+                    vector<int> item {nums[first], nums[second], nums[third]};
+                    result.push_back(item);
+                    while(second < nums.size() - 1 && nums[second] == nums[second + 1])
+                    {
+                        ++second;
+                    }
+                    while(third > 0 && nums[third] == nums[third - 1])
+                    {
+                        --third;
+                    }
+                    ++second;
+                    --third;
+                }
+
+                else if(nums[second]+nums[third]+nums[first] > 0) --third;
+                else ++second;
             }
         }
         return result;
