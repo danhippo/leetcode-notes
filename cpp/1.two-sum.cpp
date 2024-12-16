@@ -8,6 +8,7 @@
 
 #include<vector>
 #include<map>
+#include<unordered_map>
 using namespace std;
 
 class Solution {
@@ -17,12 +18,12 @@ public:
         vector<int>::iterator end = nums.end();
 
         vector<int>::iterator it;
-        map<int,int> numMap;
+        unordered_map<int,int> numMap;
         int index = 0;
         for(it = begin; it != end; it++, index++)
         {
             int res = target - *it;
-            map<int,int>::iterator pair = numMap.find(res);
+            unordered_map<int,int>::iterator pair = numMap.find(res);
             if(pair!=numMap.end())
             {
                 vector<int> dst;
