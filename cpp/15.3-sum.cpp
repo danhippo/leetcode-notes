@@ -13,55 +13,32 @@ class Solution {
 public:
     vector<vector<int>> threeSum(vector<int>& nums) {
         sort(nums.begin(), nums.end());
-        vector<vector<int>> result;
-        for(int first = 0; first < nums.size(); first++)
+        int left, right, remain;
+        vector<vector<int>> dst;
+        for(int anchor = 0; anchor< nums.size() - 2; anchor++)
         {
-            if(nums[first] > 0)
+            if(nums[anchor] > 0) break;
+            if(anchor > 0 && nums[anchor] == nums[anchor - 1]) continue;
+            remain = 0 - nums[anchor];
+            left = anchor + 1;
+            right = nums.size() - 1;
+            while(left<right)
             {
-                break;
-            }
-
-            if(first > 0 && nums[first] == nums[first - 1])
-            {
-                continue;
-            }
-            int second = first + 1;
-            int third = nums.size() - 1;
-            while(third > second)
-            {
-                //printf("%d, %d, %d\n", first, second, third);
-                /*
-                if(second != first + 1 && nums[second] == nums[second - 1])
+                if(nums[left]+nums[right]<remain)
+                    ++left;
+                else if(nums[left]+nums[right]>remain)
+                    --right;
+                else
                 {
-                    ++second;
+                    dst.push_back({nums[anchor], nums[left], nums[right]});
+                    ++left;
+                    --right;
+                    while(left < right && nums[left-1] == nums[left]) ++left;
+                    while(left < right && nums[right+1] == nums[right]) --right;
                 }
-                if(third != nums.size() - 1 && nums[third] == nums[third + 1])
-                {
-                    --third;
-                }
-                */
-                if (nums[second]+nums[third]+nums[first] == 0)
-                {
-                    printf("Add :%d, %d, %d\n", first, second, third);
-                    vector<int> item {nums[first], nums[second], nums[third]};
-                    result.push_back(item);
-                    while(second < nums.size() - 1 && nums[second] == nums[second + 1])
-                    {
-                        ++second;
-                    }
-                    while(third > 0 && nums[third] == nums[third - 1])
-                    {
-                        --third;
-                    }
-                    ++second;
-                    --third;
-                }
-
-                else if(nums[second]+nums[third]+nums[first] > 0) --third;
-                else ++second;
             }
         }
-        return result;
+        return dst;
     }
 };
 // @lc code=end

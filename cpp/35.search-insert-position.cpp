@@ -12,26 +12,23 @@ class Solution {
 public:
     int searchInsert(vector<int>& nums, int target) {
         int left = 0;
-        int right = nums.size();
-
-        while(right > left)
+        int right = nums.size() - 1;
+        int mid;
+        while(left < right)
         {
-            int mid = (left+right)/2;
-
-            if(target == nums[mid])
-            {
-                return mid;
-            }
-            else if(target > nums[mid])
-            {
+            mid = (left + right) / 2;
+            if(nums[mid] < target)
                 left = mid + 1;
-            }
-            else
-            {
+            else if(nums[mid] > target)
                 right = mid;
-            }
+            else
+                return mid;
         }
-        return left;
+
+        if(nums[left] >= target)
+            return left;
+        else
+            return left + 1;
     }
 };
 // @lc code=end

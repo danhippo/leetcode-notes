@@ -5,28 +5,31 @@
  */
 
 // @lc code=start
+#include<iostream>
+#include<vector>
+using namespace std;
+
 class Solution {
 public:
     int search(vector<int>& nums, int target) {
         int left = 0;
         int right = nums.size() - 1;
         int mid;
-        if(target>nums[right] || target < nums[left])
-            return -1;
-
         while(left < right)
         {
-            mid = left + ((right - left) >> 1);
-            if(target > nums[mid])
+            mid = (left + right)/2;
+            if(nums[mid] < target)
                 left = mid + 1;
-            else
+            else if(nums[mid] > target)
                 right = mid;
+            else
+                return mid;
         }
 
-        if(nums[left] != target)
-            return -1;
-        else
+        if(nums[left] == target)
             return left;
+        else
+            return -1;
     }
 };
 // @lc code=end
